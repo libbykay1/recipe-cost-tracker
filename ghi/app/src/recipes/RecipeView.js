@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 
 function RecipeView() {
     const { id } = useParams();
-    const [isAmountUpdated, setIsAmountUpdated] = useState(false);
+    const [yield_amount, setYieldAmount] = useState('');
+    const [yield_unit, setYieldUnit] = useState('');
+    const [new_yield, setNewYield] = useState('');
     const [recipe, setRecipe] = useState('');
     const [amounts, setAmounts] = useState({});
     const [ingredients, setIngredients] = useState([]);
     const [originalIngredients, setOriginalIngredients] = useState([]);
-    const [yield_amount, setYieldAmount] = useState('');
-    const [yield_unit, setYieldUnit] = useState('');
     const [batch_size, setBatchSize] = useState('1');
 
     const fetchData = async () => {
@@ -19,6 +19,9 @@ function RecipeView() {
         if (response.ok) {
             const data = await response.json();
             setRecipe(data.name);
+            setYieldAmount(data.yield_amount);
+            setNewYield(data.yield_amount);
+            setYieldUnit(data.yield_unit);
         };
         const ingredientsUrl = `http://localhost:8000/api/recipes/${id}/ingredients/`;
         const ingredientsResponse = await fetch(ingredientsUrl);
@@ -40,6 +43,9 @@ function RecipeView() {
     const handleBatchSizeChange = event => {
         setBatchSize(event.target.value);
     };
+    const handleYieldChange = event => {
+        setNewYield(event.target.value);
+    }
     const handleAmountChange = (event, ingredientId) => {
         const newAmount = parseFloat(event.target.value);
         setAmounts(prevAmounts => ({
@@ -53,12 +59,19 @@ function RecipeView() {
         const multiplier = newAmount / originalAmount;
         setBatchSize(multiplier);
     };
-    const handleYieldAmountChange = event => {
-        setYieldAmount(event.target.value);
-    };
-    const handleYieldUnitChange = event => {
-        setYieldUnit(event.target.value);
-    };
+
+    const handleYieldSubmit = async event => {
+        event.preventDefault();
+        const multiplier = parseFloat(new_yield) / parseFloat(yield_amount);
+        const updatedAmounts = ingredients.reduce((newAmounts, ingredient) => {
+            const originalAmount = parseFloat(ingredient.amount);
+            newAmounts[ingredient.id] = originalAmount * multiplier;
+            return newAmounts;
+        }, {});
+        setAmounts(updatedAmounts);
+        setBatchSize(batch_size * multiplier);
+    }
+
 const multiply = event => {
     event.preventDefault();
     const multiplier = parseFloat(batch_size);
@@ -68,15 +81,34 @@ const multiply = event => {
         return newAmounts;
         }, {});
     setAmounts(updatedAmounts);
-    const updatedYieldAmount = parseFloat(yield_amount) * multiplier;
-    setYieldAmount(updatedYieldAmount);
+    const updatedYield = parseFloat(yield_amount) * multiplier;
+    setNewYield(updatedYield)
 };
 
+const reset = event => {
+    fetchData();
+    setBatchSize('1');
+}
 
+const handleDelete = (recipeId) => {
+    const url = `http://localhost:8000/api/recipes/${recipeId}`;
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application.json',
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = 'http://localhost:3000/recipes/';
+        }
+    })
 
+}
 return (
     <>
         <h1>{recipe}</h1>
+
         Multiply by: <input onChange={handleBatchSizeChange} value={batch_size} type="number" id="batch_size" />
         <button onClick={multiply} className="btn btn-primary">Calculate</button>
         <table className="table table-striped">
@@ -94,9 +126,16 @@ return (
                 })}
             </tbody>
         </table>
-        <p>Yield:
-        <input value={yield_amount} onChange={handleYieldAmountChange} placeholder="amount" id="yield_amount" type="number" />
-        <input value={yield_unit} onChange={handleYieldUnitChange} placeholder="unit" id="yield_unit" type="text" />
+        <form onSubmit={handleYieldSubmit} id="yield-form">
+        Yield: <input onChange={handleYieldChange} value={new_yield} type="number" id="new_yield" />
+        {yield_unit}
+        <button className="btn btn-primary">Calculate</button>
+        </form>
+        <p>
+            <button onClick={reset}>Reset recipe</button>
+        </p>
+        <p>
+            <button onClick={() => handleDelete(id)}>Delete recipe</button>
         </p>
     </>
 );

@@ -4,11 +4,24 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
 from common.json import ModelEncoder
+from decimal import Decimal
+
+
+def decimal_to_str(o):
+    if isinstance(o, Decimal):
+        return str(o)
+    raise TypeError()
 
 
 class RecipeEncoder(ModelEncoder):
     model = Recipe
-    properties = ["name", "employee", "weekday", "cost", "id"]
+    properties = ["name", "yield_amount", "yield_unit", "id"]
+
+    def default(self, o):
+        try:
+            return super().default(o)
+        except TypeError:
+            return decimal_to_str(o)
 
 
 class IngredientEncoder(ModelEncoder):
@@ -18,6 +31,12 @@ class IngredientEncoder(ModelEncoder):
     encoders = {
         "recipe": RecipeEncoder(),
     }
+
+    def default(self, o):
+        try:
+            return super().default(o)
+        except TypeError:
+            return decimal_to_str(o)
 
 
 class AllIngredientEncoder(ModelEncoder):
