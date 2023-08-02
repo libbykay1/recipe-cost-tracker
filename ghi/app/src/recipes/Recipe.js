@@ -117,9 +117,14 @@ function Recipe() {
         fetchData();
     }, []);
 
+    const viewUrl = `http://localhost:3000/recipes/${id}/view/`
+
     return (
         <>
         <h1>{recipe}</h1>
+        <p>
+            <a href={viewUrl}>Make calculations</a>
+        </p>
         <p>
             Yield: {yield_amount} {yield_unit}
         </p>

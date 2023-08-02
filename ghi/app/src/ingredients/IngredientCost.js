@@ -9,6 +9,7 @@ function IngredientCost() {
     const [unitInput, setUnitInput] = useState('');
     const [costAmount, setCostAmount] = useState('');
     const [costUnit, setCostUnit] = useState('');
+    const [recipeId, setRecipeId] = useState('');
 
     const handleDollarInput = event => {
         setDollarInput(event.target.value);
@@ -49,11 +50,13 @@ function IngredientCost() {
             setIngredient(data.name);
             setCostAmount(data.cost_amount);
             setCostUnit(data.cost_unit);
+            setRecipeId(data.recipe.id);
         }
     };
     useEffect(() => {
         fetchData();
     }, []);
+    const recipeUrl = `http://localhost:3000/recipes/${recipeId}`
     return (
         <>
         <h2>Set cost of { ingredient }</h2>
@@ -64,6 +67,9 @@ function IngredientCost() {
         <button className="btn btn-primary">Save</button>
         </form>
         ${costAmount} per {costUnit}
+        <p>
+            <a href={recipeUrl}>Back to recipe</a>
+        </p>
         </>
     )
 };

@@ -13,6 +13,8 @@ function RecipeView() {
     const [originalIngredients, setOriginalIngredients] = useState([]);
     const [batch_size, setBatchSize] = useState('1');
 
+    const editUrl = `http://localhost:3000/recipes/${id}/`
+
     const fetchData = async () => {
         const recipeUrl = `http://localhost:8000/api/recipes/${id}`;
         const response = await fetch(recipeUrl);
@@ -112,6 +114,7 @@ const totalCost = ingredients.reduce((total, ingredient) => {
 return (
     <>
         <h1>{recipe}</h1>
+        <p><a href={editUrl}>Edit recipe</a></p>
 
         Multiply by: <input onChange={handleBatchSizeChange} value={batch_size} type="number" id="batch_size" />
         <button onClick={multiply} className="btn btn-primary">Calculate</button>

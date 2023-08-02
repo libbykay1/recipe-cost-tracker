@@ -1,3 +1,4 @@
+import Nav from './Nav';
 import RecipeView from "./recipes/RecipeView";
 import Recipe from "./recipes/Recipe";
 import RecipeList from "./recipes/RecipeList";
@@ -35,6 +36,7 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
+    <Nav />
       <div className="container">
         <Routes>
           <Route path="/ingredients/">
