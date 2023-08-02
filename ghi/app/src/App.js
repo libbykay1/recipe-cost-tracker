@@ -5,7 +5,6 @@ import IngredientCost from "./ingredients/IngredientCost";
 import NewRecipeForm from "./recipes/NewRecipeForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import IngredientList from "./ingredients/IngredientList";
 
 
 function App() {
@@ -39,8 +38,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/ingredients/">
-            <Route index element={<IngredientList ingredients={ingredients}/>} />
-            <Route path="cost" element={<IngredientCost />} />
+            <Route path=":id" element={<IngredientCost />} />
           </Route>
           <Route path="/recipes/">
             <Route index element={<RecipeList recipes={recipes} />} />

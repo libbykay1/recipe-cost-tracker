@@ -26,7 +26,7 @@ class RecipeEncoder(ModelEncoder):
 
 class IngredientEncoder(ModelEncoder):
     model = Ingredient
-    properties = ["name", "unit", "amount", "recipe", "id"]
+    properties = ["name", "unit", "amount", "cost_amount", "cost_unit", "recipe", "id"]
 
     encoders = {
         "recipe": RecipeEncoder(),

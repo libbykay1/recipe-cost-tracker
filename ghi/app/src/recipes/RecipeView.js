@@ -105,6 +105,10 @@ const handleDelete = (recipeId) => {
     })
 
 }
+const totalCost = ingredients.reduce((total, ingredient) => {
+    const ingredientCost = ingredient.cost_amount * (amounts[ingredient.id] || 0);
+    return total + ingredientCost;
+}, 0);
 return (
     <>
         <h1>{recipe}</h1>
@@ -121,11 +125,13 @@ return (
                             </td>
                             <td>{ingredient.unit}</td>
                             <td>{ingredient.name}</td>
+                            <td>${ingredient.cost_amount * ingredient.amount}</td>
                         </tr>
                     )
                 })}
             </tbody>
         </table>
+        <p>Total cost: ${totalCost.toFixed(2)}</p>
         <form onSubmit={handleYieldSubmit} id="yield-form">
         Yield: <input onChange={handleYieldChange} value={new_yield} type="number" id="new_yield" />
         {yield_unit}

@@ -126,6 +126,7 @@ function Recipe() {
         <table className="table table-striped">
             <tbody>
                 {ingredients.map(ingredient => {
+                    const ingredientUrl = `http://localhost:3000/ingredients/${ingredient.id}`;
                     return (
                         <tr key={ingredient.id}>
                             <td>{parseFloat(ingredient.amount)}</td>
@@ -133,6 +134,9 @@ function Recipe() {
                             <td>{ingredient.name}</td>
                             <td>
                                 <button onClick={() => handleDelete(ingredient.id)}>Delete ingredient</button>
+                            </td>
+                            <td>
+                                <a href={ ingredientUrl }>Set cost</a>
                             </td>
                         </tr>
                     )
