@@ -1,8 +1,37 @@
+
 .headerlogo {
     text-align: center;
 }
 
 .logo {
-    width: 400px;
-    padding: 50px
+    width: 350px;
+    padding: 50px 0px 20px 45px;
+}
+
+.navbarlist {
+    list-style-type: none;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+}
+
+.navitem {
+    display: inline-block;
+    padding: 0px 50px;
+}
+
+.links {
+    text-decoration: none;
+    color: #ba0c2f;
+}
+
+.links:visited {
+    color: #ba0c2f;
+}
+
+.container {
+    padding: 20px 0px 40px 0px;
 }

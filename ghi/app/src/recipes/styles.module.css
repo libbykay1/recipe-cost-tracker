@@ -1,6 +1,27 @@
-.bigblue {
-    color: DodgerBlue;
-    padding: 40px;
-    font-family: Arial;
-    text-align: center;
-  }
+
+.recipelist {
+  list-style-type: none;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+}
+
+.navitem {
+  display: inline-block;
+  padding: 0px 50px;
+}
+
+.links {
+  text-decoration: none;
+  color: #ebad14;
+}
+
+.links:visited {
+  color: #ebad14;
+}
+
+.listitem {
+  margin: 10px;
+}
