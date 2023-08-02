@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Recipe from "./Recipe";
+import styles from './styles.module.css';
 
 function NewRecipeForm() {
     const [recipe_name, setRecipeName] = useState('');
@@ -33,20 +34,17 @@ function NewRecipeForm() {
     };
     return (
         <>
-        <div className="row">
-            <div className="offset-3 col-6">
-                <div className="shadow p-4 mt-4">
-                    <h1>Create a new recipe</h1>
+
+                <div className={styles.form}>
                     <form onSubmit={handleSubmit} id="new-recipe-form">
-                        <div className="form-floating mb-3">
+                        <div>
                             <label htmlFor="recipe_name"></label>
-                            <input value={recipe_name} onChange={handleRecipeNameChange} placeholder="Recipe Name" type="text" id="recipe_name" />
+                            <input className={styles.input} value={recipe_name} onChange={handleRecipeNameChange} placeholder="Recipe Name" type="text" id="recipe_name" />
                         </div>
-                        <button className="btn btn-primary">Create</button>
+                        <button className={styles.button}>Create</button>
                     </form>
                 </div>
-            </div>
-        </div>
+
         {newRecipeId !== null && <Recipe newRecipeId={newRecipeId} />}
 
         </>

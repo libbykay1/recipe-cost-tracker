@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect, useRef } from 'react';
+import styles from './styles.module.css';
 
 function Recipe() {
     const { id } = useParams();
@@ -121,58 +122,61 @@ function Recipe() {
 
     return (
         <>
-        <h1>{recipe}</h1>
+        <div className={styles.container}>
+            <div className={styles.listheading}>
+
         <p>
-            <a href={viewUrl}>Make calculations</a>
+        <h1 className={styles.heading}>{recipe}</h1>
+
         </p>
         <p>
             Yield: {yield_amount} {yield_unit}
         </p>
-        <table className="table table-striped">
+        </div>
+        <table className={styles.table}>
             <tbody>
                 {ingredients.map(ingredient => {
                     const ingredientUrl = `http://localhost:3000/ingredients/${ingredient.id}`;
                     return (
                         <tr key={ingredient.id}>
-                            <td>{parseFloat(ingredient.amount)}</td>
-                            <td>{ingredient.unit}</td>
-                            <td>{ingredient.name}</td>
-                            <td>
-                                <button onClick={() => handleDelete(ingredient.id)}>Delete ingredient</button>
+                            <td className={styles.amounttd}>{ingredient.amount}</td>
+                            <td className={styles.unittd}>{ingredient.unit}</td>
+                            <td className={styles.nametd}>{ingredient.name}</td>
+                            <td className={styles.buttontd}>
+                                <button className={styles.smallbutton} onClick={() => handleDelete(ingredient.id)}>Delete ingredient</button>
                             </td>
                             <td>
-                                <a href={ ingredientUrl }>Set cost</a>
+                                <a className={styles.smalllinks} href={ ingredientUrl }>Set cost</a>
                             </td>
                         </tr>
                     )
                 })}
             </tbody>
         </table>
-        <h2>Add an ingredient</h2>
-        <div className="row">
-            <div className="offset-3 col-6">
-                <div className="shadow p-4 mt-4">
-                    <form onSubmit={handleSubmit} id="new-ingredient-form">
-                        <div className="form-floating mb-3">
-                            <label htmlFor="amount"></label>
-                            <input ref={amountInputRef} value={amount} onChange={handleAmountChange} placeholder="amount" type="text" id="amount" />
-                            <label htmlFor="unit"></label>
-                            <input value={unit} onChange={handleUnitChange} placeholder="unit" type="text" id="unit" />
-                            <label htmlFor="ingredient"></label>
-                            <input value={ingredient} onChange={handleIngredientChange} placeholder="ingredient" type="text" id="ingredient" />
-                        </div>
-                        <button className="btn btn-primary">Add</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <form onSubmit={handleYieldSubmit} id="yield-form">
-        Yield:
-        <input value={yield_amount_input} onChange={handleYieldAmountChange} placeholder="amount" id="yield_amount" type="number" />
-        <input value={yield_unit_input} onChange={handleYieldUnitChange} placeholder="unit" id="yield_unit" type="text" />
-        <button className="btn btn-primary">Save</button>
-        </form>
+        <h2 className={styles.heading}>Add an ingredient:</h2>
 
+                    <form className={styles.ingredientform} onSubmit={handleSubmit} id="new-ingredient-form">
+                        <div>
+                            <label htmlFor="amount"></label>
+                            <input className={styles.smallinput} ref={amountInputRef} value={amount} onChange={handleAmountChange} placeholder="amount" type="text" id="amount" />
+                            <label htmlFor="unit"></label>
+                            <input className={styles.smallinput} value={unit} onChange={handleUnitChange} placeholder="unit" type="text" id="unit" />
+                            <label htmlFor="ingredient"></label>
+                            <input className={styles.smallinput} value={ingredient} onChange={handleIngredientChange} placeholder="ingredient" type="text" id="ingredient" />
+
+                        <button className={styles.smallbutton}>Add</button>
+                        </div>
+                    </form>
+
+        <form className={styles.ingredientform} onSubmit={handleYieldSubmit} id="yield-form">
+       <h2 className={styles.heading}>Yield:</h2>
+        <input className={styles.smallinput} value={yield_amount_input} onChange={handleYieldAmountChange} placeholder="amount" id="yield_amount" type="number" />
+        <input className={styles.smallinput} value={yield_unit_input} onChange={handleYieldUnitChange} placeholder="unit" id="yield_unit" type="text" />
+        <button className={styles.smallbutton}>Save</button>
+        </form>
+        <a className={styles.biglinks} href={viewUrl}>Make calculations</a>
+
+        </div>
         </>
     );
 };

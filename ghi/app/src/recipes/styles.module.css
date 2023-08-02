@@ -25,3 +25,126 @@
 .listitem {
   margin: 10px;
 }
+
+.form {
+  text-align: center;
+}
+
+.input {
+  text-align: center;
+  margin: 80px;
+  height: 60px;
+  width: 600px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.button {
+  height: 60px;
+  width: 300px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  background-color: #e2bc5b;
+  border: none;
+  border-radius: 10px;
+}
+
+.heading {
+  color: #ebad14;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
+.container {
+  margin: 0px 100px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.listheading {
+  padding: 0px 0px 30px 0px;
+}
+
+.table {
+  padding: 0px 0px 30px 0px;
+  font-size: 20px;
+}
+
+.smallbutton {
+  height: 40px;
+  width: 250px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  background-color: #e2bc5b;
+  border: none;
+  border-radius: 10px;
+}
+
+.smalllinks {
+  text-decoration: none;
+  color:black;
+}
+
+.smalllinks:visited {
+  color:black;
+}
+
+.amounttd {
+  padding-right: 20px;
+}
+
+.unittd {
+  padding-right: 10px;
+}
+
+.nametd {
+  padding-right: 30px;
+}
+
+.buttontd {
+  padding-right: 20px;
+}
+
+.smallinput {
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 250px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    border-radius: 10px;
+    border-width: 1px;
+  }
+
+  .smallinput:focus {
+    outline: none;
+  }
+
+  .ingredientform {
+    padding-bottom: 40px;
+  }
+
+  .biglinks {
+    text-decoration: none;
+    color: #ba0c2f;
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  .biglinks:visited {
+    color: #ba0c2f;
+  }
