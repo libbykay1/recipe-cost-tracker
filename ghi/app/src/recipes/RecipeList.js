@@ -1,7 +1,9 @@
+import styles from './styles.module.css'
+
 function RecipeList({recipes}) {
     return (
         <>
-        <h1>Recipes</h1>
+        <h1 className={styles.bigblue}>Recipes</h1>
         <ul>
             {recipes.map(recipe => {
                 const recipeUrl = `http://localhost:3000/recipes/${recipe.id}/view`
