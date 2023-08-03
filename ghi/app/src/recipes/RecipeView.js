@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import styles from './styles.module.css';
 
 function RecipeView() {
     const { id } = useParams();
@@ -113,39 +113,43 @@ const totalCost = ingredients.reduce((total, ingredient) => {
 }, 0);
 return (
     <>
-        <h1>{recipe}</h1>
-        <p><a href={editUrl}>Edit recipe</a></p>
-
-        Multiply by: <input onChange={handleBatchSizeChange} value={batch_size} type="number" id="batch_size" />
-        <button onClick={multiply} className="btn btn-primary">Calculate</button>
-        <table className="table table-striped">
+    <div className={styles.container}>
+        <h1 className={styles.heading}>{recipe}</h1>
+        <form className={styles.fontsize}>
+        Multiply by: <input className={styles.numberinput} onChange={handleBatchSizeChange} value={batch_size} type="number" id="batch_size" />
+        <button className={styles.calculatebutton} onClick={multiply}>Calculate</button>
+        </form>
+        <table className={styles.table}>
             <tbody>
                 {ingredients.map(ingredient => {
                     return (
                         <tr key={ingredient.id}>
                             <td>
-                                <input onChange={(event) => handleAmountChange(event, ingredient.id)} value={amounts[ingredient.id] || ''} type="number" id={`amount_${ingredient.id}`} />
+                                <input className={styles.numberinput} onChange={(event) => handleAmountChange(event, ingredient.id)} value={amounts[ingredient.id] || ''} type="number" id={`amount_${ingredient.id}`} />
                             </td>
-                            <td>{ingredient.unit}</td>
-                            <td>{ingredient.name}</td>
-                            <td>${ingredient.cost_amount * ingredient.amount}</td>
+                            <td className={styles.unittd}>{ingredient.unit}</td>
+                            <td className={styles.nametd}>{ingredient.name}</td>
+                            <td className={styles.costtd}>${ingredient.cost_amount * ingredient.amount}</td>
                         </tr>
                     )
                 })}
             </tbody>
         </table>
         <p>Total cost: ${totalCost.toFixed(2)}</p>
-        <form onSubmit={handleYieldSubmit} id="yield-form">
-        Yield: <input onChange={handleYieldChange} value={new_yield} type="number" id="new_yield" />
+        <form className={styles.fontsize} onSubmit={handleYieldSubmit} id="yield-form">
+        Yield: <input className={styles.numberinput} onChange={handleYieldChange} value={new_yield} type="number" id="new_yield" />
         {yield_unit}
-        <button className="btn btn-primary">Calculate</button>
+        <button className={styles.calculatebutton}>Calculate</button>
         </form>
         <p>
-            <button onClick={reset}>Reset recipe</button>
+            <button className={styles.smallbutton} onClick={reset}>Reset recipe</button>
         </p>
         <p>
-            <button onClick={() => handleDelete(id)}>Delete recipe</button>
+            <button className={styles.smallbutton} onClick={() => handleDelete(id)}>Delete recipe</button>
         </p>
+        <p><a className={styles.biglinks} href={editUrl}>Edit recipe</a></p>
+
+        </div>
     </>
 );
 };

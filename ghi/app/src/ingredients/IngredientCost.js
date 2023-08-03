@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import styles from './ingredients.module.css'
 
 function IngredientCost() {
     const { id } = useParams();
@@ -59,17 +60,19 @@ function IngredientCost() {
     const recipeUrl = `http://localhost:3000/recipes/${recipeId}`
     return (
         <>
-        <h2>Set cost of { ingredient }</h2>
-        <form onSubmit={handleSubmit} id="cost-form">
-        <input value={dollarInput} onChange={handleDollarInput} placeholder="$" type="number" id="dollars" /> per
-        <input value={amountInput} onChange={handleAmountInput} placeholder="amout" type="number" id="amount" />
-        <input value={unitInput} onChange={handleUnitInput} placeholder="unit" type="text" id="unit" />
-        <button className="btn btn-primary">Save</button>
+        <div className={styles.container}>
+        <h2 className={styles.heading}>Set cost of { ingredient }:</h2>
+        <form className={styles.ingredientform} onSubmit={handleSubmit} id="cost-form">
+        <input className={styles.numberinput} value={dollarInput} onChange={handleDollarInput} placeholder="$" type="number" id="dollars" /> per
+        <input className={styles.input} value={amountInput} onChange={handleAmountInput} placeholder="amount" type="number" id="amount" />
+        <input className={styles.unitinput} value={unitInput} onChange={handleUnitInput} placeholder="unit" type="text" id="unit" />
+        <button className={styles.calculatebutton}>Save</button>
         </form>
         ${costAmount} per {costUnit}
         <p>
-            <a href={recipeUrl}>Back to recipe</a>
+            <a className={styles.biglinks} href={recipeUrl}>Back to recipe</a>
         </p>
+        </div>
         </>
     )
 };

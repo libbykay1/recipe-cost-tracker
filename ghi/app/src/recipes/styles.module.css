@@ -148,3 +148,39 @@
   .biglinks:visited {
     color: #ba0c2f;
   }
+
+  .numberinput {
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 70px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    border-radius: 10px;
+    border-width: 1px;
+  }
+
+  .fontsize {
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+
+  .costtd {
+    padding-left: 120px;
+  }
+
+  .calculatebutton {
+    height: 40px;
+    width: 150px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    background-color: #e2bc5b;
+    border: none;
+    border-radius: 10px;
+    margin-left: 20px;
+  }
