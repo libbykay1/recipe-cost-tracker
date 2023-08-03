@@ -1,0 +1,12 @@
+/* index.module.css */
+
+.content {
+    flex: 1; /* This allows the content to take up remaining space */
+  }
+
+  /* Add the following styles for the footer */
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }

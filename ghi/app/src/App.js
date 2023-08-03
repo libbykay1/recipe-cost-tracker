@@ -1,4 +1,5 @@
 import Nav from './Nav';
+import Footer from './Footer';
 import RecipeView from "./recipes/RecipeView";
 import Recipe from "./recipes/Recipe";
 import RecipeList from "./recipes/RecipeList";
@@ -6,6 +7,7 @@ import IngredientCost from "./ingredients/IngredientCost";
 import NewRecipeForm from "./recipes/NewRecipeForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import styles from './index.module.css';
 
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
   return (
     <BrowserRouter>
     <Nav />
-      <div className="container">
+      <div className={styles.content}>
         <Routes>
           <Route path="/ingredients/">
             <Route path=":id" element={<IngredientCost />} />

@@ -35,3 +35,10 @@
 .container {
     padding: 20px 0px 40px 0px;
 }
+
+.footer {
+    font-family: 'Montserrat', sans-serif;
+    color: #9B9B9B;
+    font-size: 14px;
+    margin-left: 40px;
+}

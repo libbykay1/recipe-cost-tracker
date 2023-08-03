@@ -12,6 +12,7 @@ function RecipeView() {
     const [ingredients, setIngredients] = useState([]);
     const [originalIngredients, setOriginalIngredients] = useState([]);
     const [batch_size, setBatchSize] = useState('1');
+    const [costs, setCosts] = useState({});
 
     const editUrl = `http://localhost:3000/recipes/${id}/`
 
@@ -35,7 +36,12 @@ function RecipeView() {
             ingredientsData.ingredients.forEach(ingredient => {
                 initialAmounts[ingredient.id] = ingredient.amount;
             });
+            const initialCosts = {};
+            ingredientsData.ingredients.forEach(ingredient => {
+                initialCosts[ingredient.id] = ingredient.cost_amount;
+            });
             setAmounts(initialAmounts);
+            setCosts(initialCosts);
         };
     };
     useEffect(() => {
@@ -72,6 +78,12 @@ function RecipeView() {
         }, {});
         setAmounts(updatedAmounts);
         setBatchSize(batch_size * multiplier);
+        const updatedCosts = ingredients.reduce((newCosts, ingredient) => {
+            const originalCost = parseFloat(ingredient.cost_amount);
+            newCosts[ingredient.id] = originalCost * multiplier;
+            return newCosts;
+            }, {});
+        setCosts(updatedCosts);
     }
 
 const multiply = event => {
@@ -83,6 +95,12 @@ const multiply = event => {
         return newAmounts;
         }, {});
     setAmounts(updatedAmounts);
+    const updatedCosts = ingredients.reduce((newCosts, ingredient) => {
+        const originalCost = parseFloat(ingredient.cost_amount);
+        newCosts[ingredient.id] = originalCost * multiplier;
+        return newCosts;
+        }, {});
+    setCosts(updatedCosts);
     const updatedYield = parseFloat(yield_amount) * multiplier;
     setNewYield(updatedYield)
 };
@@ -129,7 +147,7 @@ return (
                             </td>
                             <td className={styles.unittd}>{ingredient.unit}</td>
                             <td className={styles.nametd}>{ingredient.name}</td>
-                            <td className={styles.costtd}>${ingredient.cost_amount * ingredient.amount}</td>
+                            <td className={styles.costtd}>${(costs[ingredient.id] * ingredient.amount).toFixed(2)}</td>
                         </tr>
                     )
                 })}
