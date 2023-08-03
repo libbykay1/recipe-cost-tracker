@@ -13,6 +13,11 @@ def decimal_to_str(o):
     raise TypeError()
 
 
+class IngredientCostEncoder(ModelEncoder):
+    model = Ingredient
+    properties = ["name", "id", "cost_amount", "cost_unit"]
+
+
 class RecipeEncoder(ModelEncoder):
     model = Recipe
     properties = ["name", "yield_amount", "yield_unit", "id"]
@@ -104,6 +109,15 @@ def api_ingredients(request, recipe_id=None):
             )
     else:
         content = json.loads(request.body)
+        name = content["name"]
+        try:
+            match = Ingredient.objects.filter(name=name, cost_amount__isnull=False).first()
+            if match:
+                content["cost_amount"] = match.cost_amount
+                content["cost_unit"] = match.cost_unit
+            print(content)
+        except Ingredient.DoesNotExist:
+            pass
         try:
             recipe = Recipe.objects.get(id=recipe_id)
             content["recipe"] = recipe
