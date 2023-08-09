@@ -1,5 +1,4 @@
 import Nav from './Nav';
-import Footer from './Footer';
 import RecipeView from "./recipes/RecipeView";
 import Recipe from "./recipes/Recipe";
 import RecipeList from "./recipes/RecipeList";
@@ -46,7 +45,7 @@ function App() {
           </Route>
           <Route path="/recipes/">
             <Route index element={<RecipeList recipes={recipes} />} />
-            <Route path="new" element={<NewRecipeForm />} />
+            <Route path="new" element={<NewRecipeForm fetchRecipes={fetchRecipes} />} />
             <Route path=":id" element={<Recipe />} />
             <Route path=":id/view" element={<RecipeView />} />
           </Route>

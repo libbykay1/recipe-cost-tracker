@@ -116,6 +116,7 @@ function Recipe() {
     };
     useEffect(() => {
         fetchData();
+        amountInputRef.current.focus();
     }, []);
 
     const viewUrl = `http://localhost:3000/recipes/${id}/view/`

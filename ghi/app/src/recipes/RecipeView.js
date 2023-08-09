@@ -97,7 +97,7 @@ const multiply = event => {
     setAmounts(updatedAmounts);
     const updatedCosts = ingredients.reduce((newCosts, ingredient) => {
         const originalCost = parseFloat(ingredient.cost_amount);
-        newCosts[ingredient.id] = originalCost * multiplier;
+        newCosts[ingredient.id] = (originalCost || 0) * multiplier;
         return newCosts;
         }, {});
     setCosts(updatedCosts);

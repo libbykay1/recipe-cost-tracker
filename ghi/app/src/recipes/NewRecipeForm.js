@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Recipe from "./Recipe";
 import styles from './styles.module.css';
 
-function NewRecipeForm() {
+function NewRecipeForm({fetchRecipes}) {
+    const inputRef = useRef();
     const [recipe_name, setRecipeName] = useState('');
     const [newRecipeId, setNewRecipeId] = useState(null);
     const navigate = useNavigate();
@@ -26,12 +27,16 @@ function NewRecipeForm() {
         };
         const response = await fetch(recipeUrl, fetchConfig);
         if (response.ok) {
+            fetchRecipes();
             const newRecipe = await response.json();
             const newRecipeId = newRecipe.id;
             setNewRecipeId(newRecipeId);
             navigate(`/recipes/${newRecipeId}`);
         };
     };
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
     return (
         <>
 
@@ -39,7 +44,7 @@ function NewRecipeForm() {
                     <form onSubmit={handleSubmit} id="new-recipe-form">
                         <div>
                             <label htmlFor="recipe_name"></label>
-                            <input className={styles.input} value={recipe_name} onChange={handleRecipeNameChange} placeholder="Recipe Name" type="text" id="recipe_name" />
+                            <input ref={inputRef} className={styles.input} value={recipe_name} onChange={handleRecipeNameChange} placeholder="Recipe Name" type="text" id="recipe_name" />
                         </div>
                         <button className={styles.button}>Create</button>
                     </form>
